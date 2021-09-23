@@ -83,58 +83,8 @@ class Account{
 	
 }
 
-class CheckingAccount extends Account {
-	
-	public void makeWithdrawAC (int index, int money)
-	{
-		if (index>=accBalanceL.size())
-		{
-			System.out.println("Your account is already empty can withdraw 5000 PKR maximum " );
-		}
-	}
-	
-	public void displayAllDeductions()
-	{
-		System.out.println("Following are all the deductions from Checking Account" );
-	}
-	
-}
 
-class SavingsAccount extends Account {
-	
-	public void makeWithdrawSA (int index, int money)
-	{
-		if (index>=accBalanceL.size())
-		{
-			System.out.println("Your account is already empty you can not withdraw more " );
-		}
-	}
-	
-	public void calculateZakat (int index1,int totalamt)
-	{
-		//String storeTotal = accBalanceL.get(index1);
-		//int i = Integer.parseInt(storeTotal);
-		if (totalamt>=20000)
-		{
-			double Zakaat ;
-			Zakaat = (totalamt*2.5)/100;
-			System.out.println("Deducting Zakaat... " + Zakaat );
-		}
-		
-		else
-			System.out.println("Balance is low than 20,000. Zakat can not be duducated. " );
-		
-	}
-	
-	
-	public void calculateInterest (int index1,int totalamt)
-	{
-		System.out.println("Assuming bank interest rate as 2.5");
-		double inte = (totalamt*2.5)/100;
-			System.out.println("Your Savings account interest has been calculated: " + inte  );
-		
-	}
-}
+
 
 
 
