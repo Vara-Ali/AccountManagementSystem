@@ -89,6 +89,22 @@ class Account{
 		   return retInt;
 	}
 	
+	public boolean transferAmount(int index1,int index2,int amount)
+	{
+		if (amount > 0)
+		{
+			int temp=amount;
+			//String balanceAt = accBalanceL.get(index2);
+			//accBalanceL.set(index1, balanceAt);
+			
+			return true;
+		}
+		else 
+			System.out.println("Negative amount can not be transferred" );
+			return false;
+		
+	}
+	
 
 }
 

@@ -136,7 +136,32 @@ public class AccountManagementSystemTest {
 						assertTrue(resultT);
 						//fail("Not yet implemented");
 					}
-	
+
+					//transferAmount-True
+					@Test
+					public void testtransferAmount() {
+						//boolean expectedF = false;
+					
+						//Act
+						boolean resultT = AccountunderTest.transferAmount(0, 1,25000);
+						//Assert
+						assertTrue(resultT);
+						//fail("Not yet implemented");
+					}	
+					
+					
+					//It should return false as negative amount can not be transferred
+					//transferAmount-False
+					@Test
+					public void testtransferAmountF() {
+						//boolean expectedF = false;
+					
+						//Act
+						boolean resultT = AccountunderTest.transferAmount(0, 1,-25000);
+						//Assert
+						assertTrue(resultT);
+						//fail("Not yet implemented");
+					}
 	
 	
 
