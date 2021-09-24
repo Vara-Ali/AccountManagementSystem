@@ -47,8 +47,13 @@ class Account{
 	}
 	
 	//The Deposit Function will deposit the specified amount in the account.
-	public void makeDeposit(int amount,int index) 
+	public boolean makeDeposit(int amount,int index) 
 	{
+		if (amount < 0)
+		{
+			System.out.println("Amount you've entered is negative");
+			return false;
+		}
 		String amountStr = String.valueOf(amount);
 		
 		if (index>=accBalanceL.size())
@@ -56,8 +61,10 @@ class Account{
 			System.out.println("Your account was empty previously" );
 			accBalanceL.add(index,amountStr);
 			System.out.println("The amount has been added successfully" );
+			addup = accBalanceL.get(index);
+			return true;
 		}
-		
+	
 		else 
 		{
 			int finalAm = Integer.parseInt(amountStr);
@@ -66,9 +73,10 @@ class Account{
 			String amountStrnow = String.valueOf(finalAm);
 			accBalanceL.add(index,amountStrnow);
 			System.out.println("The amount has been added successfully" );
+			addup = accBalanceL.get(index);
+			return true;
 		}
 		
-		addup = accBalanceL.get(index);
 		
 		
 	}
@@ -80,13 +88,8 @@ class Account{
 		   return retInt;
 	}
 	
-	
+
 }
-
-
-
-
-
 
 public class AccountingSystem {
 
@@ -168,15 +171,15 @@ public class AccountingSystem {
 					String accTypeIn = acIn.next();
 					String checking = "checking";	String savings = "savings";
 					
-					if(accTypeIn.equals(checking) && accTypeIn.equals(savings)) 
+					//if(accTypeIn.equals(checking) && accTypeIn.equals(savings)) 
 					{
 						ac.setAcc_type(acIn.nextLine());
 						accType.add(ac.getAcc_type());
 					}
-					else
+					//else
 					{
-						System.out.println("Please enter 'checking/savings' CORRECTLY!!");
-						break;
+						//System.out.println("Please enter 'checking/savings' CORRECTLY!!");
+						//break;
 					}
 						
 					String accNo = String.valueOf(count);
