@@ -9,7 +9,7 @@ class Account{
 	private String acc_type;
 	String storeTotal;
 	//Linked List that will maintain account balance
-	LinkedList<String> accBalanceL = new LinkedList<String>();
+	protected LinkedList<String> accBalanceL = new LinkedList<String>();
 	String addup=null;
 	int total=0;
 	
@@ -84,7 +84,8 @@ class Account{
 	public int checkBalance(int index) 
 	{
 		System.out.println("The total amount in your bank is " + accBalanceL.get(index));
-		int retInt = Integer.parseInt(accBalanceL.get(index));
+		String storeBalance = accBalanceL.get(index);
+		int retInt = Integer.parseInt(storeBalance);
 		   return retInt;
 	}
 	

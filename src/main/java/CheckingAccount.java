@@ -6,7 +6,7 @@ class CheckingAccount extends Account {
 	
 	public boolean makeWithdrawAC (int index, int money)
 	{
-		int retInt = Integer.parseInt(accBalanceL.get(index));
+		//int retInt = Integer.parseInt(accBalanceL.get(index));
 		if (index>=accBalanceL.size())
 		{
 			System.out.println("Your account is already empty can withdraw 5000 PKR maximum " );
@@ -14,7 +14,8 @@ class CheckingAccount extends Account {
 		}
 		else
 		{
-			int remaining = retInt - money;
+		//	int remaining = retInt - money;
+			System.out.println("Amount from your account has been withdrwan " );
 			return true;
 		}
 	}
