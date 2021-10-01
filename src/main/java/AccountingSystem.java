@@ -216,15 +216,15 @@ public class AccountingSystem {
 					String accTypeIn = acIn.next();
 					String checking = "checking";	String savings = "savings";
 					
-					//if(accTypeIn.equals(checking) && accTypeIn.equals(savings)) 
+					if(accTypeIn.equals(checking) || accTypeIn.equals(savings)) 
 					{
-						ac.setAcc_type(acIn.nextLine());
+						ac.setAcc_type(accTypeIn);
 						accType.add(ac.getAcc_type());
 					}
-					//else
+					else
 					{
-						//System.out.println("Please enter 'checking/savings' CORRECTLY!!");
-						//break;
+						System.out.println("Please enter 'checking/savings' CORRECTLY!!");
+						break;
 					}
 						
 					String accNo = String.valueOf(count);
