@@ -1,5 +1,30 @@
 import java.util.LinkedList;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
+
+class InvalidAccountException  extends Exception  
+{  
+    public InvalidAccountException (String str)  
+    {  
+        // calling the constructor of parent Exception  
+        super(str);  
+    }  
+} 
+
+
+class InvalidMoneyException  extends Exception  
+{  
+    public InvalidMoneyException (String str)  
+    {  
+        // calling the constructor of parent Exception  
+        super(str);  
+    }  
+} 
+
+
 
 class Account{
 	private String name;
@@ -110,9 +135,10 @@ class Account{
 
 public class AccountingSystem {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		int count = -1;
 		int i=0;
+		
 		
 		// TODO Auto-generated method stub
 		//Linked List that will maintain names
@@ -146,10 +172,11 @@ public class AccountingSystem {
 			System.out.println("----------------------------------------------------------------------------------");
 			System.out.println("Enter   1. To open an acount or close an account");
 			System.out.println("	2. To login to your account to perform further actions");
-			//System.out.println("	3. To deposit a specified amount in the account.");
+			System.out.println("	3. To write to a file output.txt");
+			System.out.println("	4. To read from a file output.txt");
 			System.out.println("	0. To abort the program");
 			System.out.println("----------------------------------------------------------------------------------");
-		
+		 
 		int choice;
 		Scanner ch = new Scanner(System.in);
 		choice = ch.nextInt();
@@ -177,6 +204,7 @@ public class AccountingSystem {
 					Scanner addr = new Scanner(System.in);
 					ac.setAddress(addr.nextLine());
 					addressL.add(ac.getAddress());
+				
 					
 					System.out.println("Enter your Phone number");
 					Scanner ph = new Scanner(System.in);
@@ -215,20 +243,41 @@ public class AccountingSystem {
 					Scanner closeIn = new Scanner(System.in);
 					int closeNum = closeIn.nextInt();
 					
-					//Checking if the entered account number exists or not
-					String check = String.valueOf(closeNum);
-					if (accNumL.contains(check))
-						{
-						nameL.remove(closeNum);
-						addressL.remove(closeNum);
-						mobileL.remove(closeNum);
-						accNumL.remove(closeNum);
+					
+					{
+					
+						//Checking if the entered account number exists or not
+						String check = String.valueOf(closeNum);
 						
-						System.out.println("The account having account number " + closeNum + " has been closed");
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////---------------->>>>>>>>>>>>>>CUSTOM EXCEPTION<<<<<<<<<<<<<<<<<<<<--------------------------/////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+						try {
+							if (accNumL.contains(check))
+								{
+								nameL.remove(closeNum);
+								addressL.remove(closeNum);
+								mobileL.remove(closeNum);
+								accNumL.remove(closeNum);
+								
+								System.out.println("The account having account number " + closeNum + " has been closed");
+								}
+							
+							else
+							{
+								throw new InvalidAccountException("The specified account number does not exist");  
+								//System.out.println("The specified account number does not exist");
+							}
+						}
+						
+						catch (InvalidAccountException e)
+						{
+							System.out.println("This is the exception");  
+				            System.out.println("The exception was : " + e); 
 						}
 					
-					else
-						System.out.println("The specified account number does not exist");
+				}
 						
 				}
 				
@@ -278,7 +327,31 @@ public class AccountingSystem {
 						System.out.println("Enter the amount you want to deposit");
 						Scanner moneyIn = new Scanner (System.in);
 						int moneyEntered = moneyIn.nextInt();
-						ac.makeDeposit(moneyEntered,logIn);
+						
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////---------------->>>>>>>>>>>>>>CUSTOM EXCEPTION<<<<<<<<<<<<<<<<<<<<--------------------------/////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+						
+						try
+						{
+							if (moneyEntered < 0)
+							{
+								throw new InvalidMoneyException("negative money can not be entered"); 
+							}
+							
+							else
+							{
+								ac.makeDeposit(moneyEntered,logIn);
+							}
+						}
+						
+						
+						catch (InvalidMoneyException e)
+						{
+							System.out.println("This is the exception");  
+				            System.out.println("The exception was : " + e); 
+						} 
+						
 						break;
 					}
 					
@@ -349,13 +422,45 @@ public class AccountingSystem {
 			
 			case 3:
 			{
-				/*System.out.println("Enter the amount you want to deposit");
-				Scanner moneyIn = new Scanner (System.in);
-				int moneyEntered = moneyIn.nextInt();
-				ac.makeDeposit(moneyEntered);
-				break;*/
+				FileWriter fileWriterr=new FileWriter("output.txt");
+				String strAcc = ac.getAcc_no();
+				String strAcType = ac.getAcc_type();
+				String strAddress = ac.getAddress();
+				String strMobNo = ac.getMob_no();;
+				String strName = ac.getName();
+				String str = "Account No:  " + strAcc + " Name: " + strName + " Mobile No: " + strMobNo + " Address: " + strAddress + " Account Type: " + strAcType;
+				for (int j = 0; j < str.length(); j++)
+					fileWriterr.write(str.charAt(j));
+
+				System.out.println("Writing successful");
+				fileWriterr.close();
+				break;
 				
 			}
+			
+			
+			case 4:
+			{
+				int ChartoRead;
+
+				FileReader FileReaderVar=null;
+				try
+				{
+					FileReaderVar = new FileReader("output.txt");
+				}
+				catch (FileNotFoundException fe)
+				{
+					System.out.println("File not found");
+				}
+
+				while ((ChartoRead=FileReaderVar.read())!=-1)
+					System.out.print((char)ChartoRead);
+
+				FileReaderVar.close();
+				break;
+				
+			}
+			
 			
 			case 0:
 				abort = true;
@@ -369,7 +474,7 @@ public class AccountingSystem {
 	}while(!abort);
 		System.out.println("Program Aborted!!");
 			
-
+		//fileWriterr.close();
 	}
 
 }
